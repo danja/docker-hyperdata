@@ -2,7 +2,7 @@ FROM nginx
 
 RUN apt update && \
 	apt upgrade -y && \
-	apt install -y wget unzip ps
+	apt install -y wget unzip
 
 RUN mkdir ./foo-tmp
 

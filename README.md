@@ -33,13 +33,34 @@ This is based on the nginx image, with various browser-based apps addressing a r
 
 sudo docker build -t foowiki .
 
-sudo docker run foowiki -d -p 80:80
+sudo docker run --name foowiki -d -p 80:80 nginx
+sudo docker run --name some-nginx -d some-content-nginx
+docker run --name some-nginx -d -p 8080:80 some-content-nginx
 
 ### newsmonitor
 
 
 
-#### note to self - total cleanup
+#### note to self
+
+
+To show only running containers use:
+
+sudo docker ps
+To show all containers use:
+
+sudo docker ps -a
+
+To remove all containers that are NOT running
+
+sudo docker rm `docker ps -aq -f status=exited`
+
+
+removing containers according to pattern
+
+sudo docker ps -a | grep "pattern" | awk '{print $3}' | xargs sudo docker rmi
+
+- total cleanup
 
 list images -
 
