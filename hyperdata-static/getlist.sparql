@@ -6,9 +6,23 @@ PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX sioc: <http://rdfs.org/sioc/ns#>
 PREFIX wiki: <http://purl.org/stuff/wiki#>
 
-SELECT DISTINCT ?topicLabel
+SELECT DISTINCT *
 FROM <http://hyperdata.it/wiki>
 WHERE {
-    ?s dc:topic ?topicURI .
-    ?topicURI rdfs:label ?topicLabel .
+?uri a wiki:Page ;
+     dc:title ?title .
+OPTIONAL {
+     ?uri dc:format ?format
+}
+OPTIONAL {
+     ?uri dc:created ?created ;
+}
+OPTIONAL {
+     ?uri dc:modified ?modified ;
+}
+OPTIONAL {
+     ?uri foaf:maker [
+         foaf:nick ?nick
+     ] .
+}
 }
