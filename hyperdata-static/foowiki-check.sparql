@@ -1,0 +1,14 @@
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dc: <http://purl.org/dc/terms/>
+PREFIX dctype: <http://purl.org/dc/dcmitype/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX sioc: <http://rdfs.org/sioc/ns#>
+PREFIX wiki: <http://purl.org/stuff/wiki#>
+
+SELECT DISTINCT ?topicLabel
+ FROM NAMED <http://hyperdata.it/wiki>
+WHERE {
+    ?s dc:topic ?topicURI .
+    ?topicURI rdfs:label ?topicLabel .
+}  

@@ -1,0 +1,95 @@
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+
+<http://hyperdata.it/wiki/To%20Investigate>
+  a <http://purl.org/stuff/wiki#Page>, sioc:Post ;
+  dc:date "2015-01-08T10:12:56.585Z" ;
+  dc:format <http://purl.org/NET/mediatypes/text/markdown> ;
+  dc:title "To Investigate" ;
+  sioc:content """* for mobile http://ionicframework.com/ is supported in Brackets
+* http://en.wikipedia.org/wiki/Responsive_web_design
+* https://www.npmjs.com/package/http-template
+
+""" ;
+  foaf:maker [ foaf:nick "danja" ] .
+
+<http://hyperdata.it/wiki/Content%20Model>
+  a <http://purl.org/stuff/wiki#Page>, sioc:Post ;
+  dc:date "2015-01-07T09:46:23.885Z" ;
+  dc:format <http://purl.org/NET/mediatypes/text/markdown> ;
+  dc:title "Content Model" ;
+  sioc:content """to support versioning, looks like [SPARQL 1.1 subqueries](http://www.w3.org/TR/sparql11-query/#subqueries) will be needed for rendering
+
+may be useful :
+    http://rdfs.org/sioc/types#Wiki
+    http://rdfs.org/sioc/types#Weblog
+    http://rdfs.org/sioc/types#WikiArticle
+    http://rdfs.org/sioc/ns#topic
+
+```
+GRAPH <http://hyperdata.it/wiki> {
+
+<http://hyperdata.it/wiki/PageTwo>
+   dc:hasVersion [
+	dc:format <http://purl.org/NET/mediatypes/text/markdown> ;
+    dc:date "2012-04-02T07:24:54Z" ;
+    dc:title "Page Two!" ;
+    sioc:content "My second post." ;
+    a sioc:Post ;
+    a wiki:Page ;
+    foaf:maker [
+        foaf:nick "danja"
+    ] .
+	}
+```""" ;
+  foaf:maker [ foaf:nick "danja" ] .
+
+<http://hyperdata.it/wiki/FuWiki%20To%20Do>
+  a <http://purl.org/stuff/wiki#Page>, sioc:Post ;
+  dc:date "2015-01-08T16:49:31.018Z" ;
+  dc:format <http://purl.org/NET/mediatypes/text/markdown> ;
+  dc:title "FuWiki To Do" ;
+  sioc:content """See also [To Investigate](To Investigate)
+
+* fix deletes to remove orphan nick bnodes
+* make SELECT use graphs
+* tweak edit form labels for
+* format dates
+* import
+* MD page import/export
+* search
+* support images
+* include related links in RDF
+* tags
+* [WikiWhiteBoard](WikiWhiteBoard)
+
+
+
+* start proper docs - /projects on github
+* publish code to github as separate project
+* announce - Jena & semweb lists
+
+* support source extensions
+* graph view [vis.js](http://visjs.org/docs/index.html)
+
+* no! // not worth it right now...change model to include versioning (hasVersion) [Content Model](ContentModel)""" ;
+  foaf:maker [ foaf:nick "danja" ] .
+
+<http://hyperdata.it/wiki/Home%20Page>
+  a <http://purl.org/stuff/wiki#Page>, sioc:Post ;
+  dc:date "2012-04-02T07:24:53Z" ;
+  dc:format <http://purl.org/NET/mediatypes/text/markdown> ;
+  dc:title "Home Page" ;
+  sioc:content """[FuWiki To Do](FuWiki To Do)
+
+[To Investigate](To Investigate)
+
+## Home Page
+
+In markdown format.
+
+[I'm an inline-style link](https://www.google.com)
+
+[I'm an inline-style relative link to a page in the store (PageTwo)](PageTwo)""" ;
+  foaf:maker [ foaf:nick "danja" ] .

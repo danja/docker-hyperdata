@@ -8,13 +8,81 @@ Dockerfiles for, ultimately, all my sites and services.
 
 ### SPARQL store - Fuseki
 
-https://hub.docker.com/r/stain/jena-fuseki/
+-----------------
+Basically works, but has wrong config for Fuseki
 
 sudo docker pull stain/jena-fuseki
 
 sudo docker run --name fuseki-data -v /fuseki busybox
 
 sudo docker run -d --name fuseki -p 3030:3030 -e ADMIN_PASSWORD=pw123 --volumes-from fuseki-data stain/jena-fuseki
+
+-----------------
+the stain way
+
+as above
+
+cd hyperdata-busybox
+
+sudo docker cp foowiki-config.ttl fuseki-data:/fuseki/config.ttl
+// sudo docker cp bootstrap.ttl fuseki-data:/staging/bootstrap.ttl
+
+sudo docker stop fuseki
+
+sudo docker run -d --name fuseki -p 3030:3030 -e ADMIN_PASSWORD=pw123 --volumes-from fuseki-data stain/jena-fuseki
+
+
+
+
+sudo docker run --name fuseki-data -v /fuseki busyfoo
+
+
+sudo docker run -d --name fuseki -p 3030:3030 -e ADMIN_PASSWORD=pw123 \
+   --volumes-from fuseki-data -v /fuseki stain/jena-fuseki \
+  ./tdbloader --desc=/home/foowiki/foowiki-config.ttl ./load.sh foowiki /home/foowiki/bootstrap.ttl
+
+  docker run --volumes-from fuseki-data -v /home/stain/data:/staging stain/jena-fuseki \
+    ./tdbloader --desc=/staging/tdb.ttl
+
+-----------------
+with tweaked Fuseki Dockerfile, fails silently
+
+cd fooseki
+
+sudo docker build -t fooseki .
+
+sudo docker run --name fuseki-data -v /fuseki busybox
+
+sudo docker run -d --name fooseki -p 3030:3030 -e ADMIN_PASSWORD=pw123 --volumes-from fuseki-data fooseki
+
+java -Xms2048M -Xmx2048M -Xss4m  -jar ./fuseki-server.jar -p 8080:8080 --verbose --update --config ./foowiki-config.ttl
+
+
+--------------------
+sudo docker exec -t -i container_name /bin/bash
+
+https://hub.docker.com/r/stain/jena-fuseki/
+
+sudo docker pull stain/jena-fuseki
+
+* build & run a busybox for data storage, with added config files for foowiki
+
+cd hyperdata-busybox
+
+sudo docker build -t fuseki-data .
+
+sudo docker run --name fuseki-data -v /fuseki fuseki-data
+
+sudo docker run -d --name fuseki -p 3030:3030 -e ADMIN_PASSWORD=pw123 \
+   --volumes-from fuseki-data -v /fuseki stain/jena-fuseki \
+  ./tdbloader --desc=/home/foowiki/foowiki-config.ttl ./load.sh /home/foowiki/bootstrap.ttl
+
+// sudo docker run --name fuseki-data -v /fuseki busybox
+
+// sudo docker run --volumes-from fuseki-data -v /home/stain/data:/staging stain/jena-fuseki \
+  ./tdbloader --desc=/staging/tdb.ttl
+
+// sudo docker run -d --name fuseki -p 3030:3030 -e ADMIN_PASSWORD=pw123 --volumes-from fuseki-data stain/jena-fuseki
 
 navigate to http://localhost:3030
 
@@ -42,7 +110,7 @@ sudo docker run --name foowiki -d -p 80:80 foowiki
 
 #### note to self
 
-docker exec -t -i container_name /bin/bash
+sudo docker exec -t -i container_name /bin/bash
 
 To show only running containers use:
 
