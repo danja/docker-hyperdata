@@ -26,11 +26,10 @@ cd hyperdata-static
 
 sudo docker cp hyperdata-config.ttl fuseki-data:/fuseki/config.ttl
 
+* Restart into the custom config:
+
 sudo docker stop fuseki
-
-* Restart using the custom config:
-
-sudo docker run -d --name fuseki -p 3030:3030 -e ADMIN_PASSWORD=pw123 --volumes-from fuseki-data stain/jena-fuseki
+sudo docker start fuseki
 
 
 navigate to http://localhost:3030
