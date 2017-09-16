@@ -4,6 +4,10 @@
 
 Dockerfiles for, ultimately, all my sites and services.
 
+Most of my things are backed by a Fuseki2 SPARQL RDF store.
+
+So far below there are instructions to get such a store running, with a [FooWiki](https://github.com/danja/foowiki) Wiki instance running as a browser-based application, accessing Fuseki over HTTP.
+
 ### SPARQL store - Fuseki
 
 *This part sets up a Fuseki2 server with custom config and an associated volume for data persistence.*
