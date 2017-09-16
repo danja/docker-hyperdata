@@ -29,12 +29,13 @@ sudo docker cp hyperdata-config.ttl fuseki-data:/fuseki/config.ttl
 * Restart into the custom config:
 
 sudo docker stop fuseki
-sudo docker start fuseki
 
+sudo docker start fuseki
 
 navigate to http://localhost:3030
 
 log in as admin:pw123
+
 
 ### hyperdata-static
 
@@ -50,11 +51,44 @@ Run the Web server on port 80 :
 
 sudo docker run --name hyperdata -d -p 80:80 hyperdata-static
 
+#### Accesing FooWiki
+
+This will involve, at minimum, editing the /etc/hosts files on the machines on which you want to access the hyperdata-static material. Within foowiki/config.js the Fuseki server is specified as being at http://fuseki.local:3030
+
+So on the host running FooWiki, /etc/hosts should be edited to add:
+
+127.0.0.1       localhost fuseki.local
+
+Similarly, on other machines on the local network:
+
+127.0.0.1	localhost
+192.168.0.150 fuseki.local
+
+Where here 192.168.0.150 is the machine running FooWiki.
+
+Now when navigating to :
+
+http://fuseki.local:3030
+
+you should see the Fuseki admin page. Log in with admin:pw123
+
+Although FooWiki should work as-is, it's recommended to pre-load Fuseki with some bootstrap data (mostly documentation).
+
+Open https://github.com/danja/foowiki and navigate to /etc/bootstrap.ttl - open this raw and save it locally somewhere convenient.
+
+In the Fuseki admin interface, on the dataset /foowiki, click 'add data'. The destination graph name is http://hyperdata.it/wiki
+
+Click 'Select Files' and navigate to your copy of bootstrap.ttl
+
+Now opening http://fuseki.local/foowiki should give you a running Wiki with some docs pre-loaded.
+
 ### newsmonitor
 
 coming soon...
 
 #### notes to self
+
+sudo docker build --no-cache -t hyperdata-static .
 
 https://hub.docker.com/r/stain/jena-fuseki/
 
