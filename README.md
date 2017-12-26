@@ -49,7 +49,7 @@ cd hyperdata-static
 
 Build nginx-based image, adding files from GitHub :
 
-sudo docker build -t hyperdata-static .
+sudo docker build --no-cache -t hyperdata-static .
 
 Run the Web server on port 80 :
 
