@@ -66,6 +66,7 @@ So on the host running FooWiki, /etc/hosts should be edited to add:
 Similarly, on other machines on the local network:
 
 127.0.0.1	localhost
+
 192.168.0.150 fuseki.local
 
 Where here 192.168.0.150 is the machine running FooWiki.
@@ -78,7 +79,7 @@ you should see the Fuseki admin page. Log in with admin:pw123
 
 Although FooWiki should work as-is, it's recommended to pre-load Fuseki with some bootstrap data (mostly documentation).
 
-Open https://github.com/danja/foowiki and navigate to /etc/bootstrap.ttl - open this raw and save it locally somewhere convenient.
+Open https://github.com/danja/foowiki and navigate to /etc/bootstrap.ttl - open this **raw** and save it locally somewhere convenient.
 
 In the Fuseki admin interface, on the dataset /foowiki, click 'add data'. The destination graph name is http://hyperdata.it/wiki
 
@@ -127,6 +128,7 @@ https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-con
 stop & remove all containers -
 
 sudo docker stop $(sudo docker ps -a -q)
+
 sudo docker rm $(sudo docker ps -a -q)
 
 remove all images -
