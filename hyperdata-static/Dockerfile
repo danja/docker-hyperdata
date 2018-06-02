@@ -14,6 +14,14 @@ RUN mv foowiki-master foowiki
 
 RUN rm master.zip
 
+RUN wget -O master.zip https://github.com/danja/trellis/archive/master.zip
+
+RUN unzip master.zip
+
+RUN mv trellis-master trellis
+
+RUN rm master.zip
+
 RUN pwd
 
 RUN ls
