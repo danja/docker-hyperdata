@@ -45,7 +45,9 @@ log in as admin:pw123
 
 *This is based on the nginx image, with various browser-based apps addressing a remote SPARQL store.*
 
-cd hyperdata-static
+(after git clone https://github.com/danja/docker-hyperdata.git)
+
+cd docker-hyperdata/hyperdata-static
 
 Build nginx-based image, adding files from GitHub :
 
@@ -87,17 +89,31 @@ Click 'Select Files' and navigate to your copy of bootstrap.ttl
 
 Now opening http://fuseki.local/foowiki should give you a running Wiki with some docs pre-loaded.
 
+### Schema Editor
+
+needs a live SPARQL server...
+
+schema-editor-gh-pages/src/public
+
 ### newsmonitor
 
 coming soon...
 
 #### notes to self
 
+sudo docker run -dit --restart unless-stopped --name fuseki-data -v /fuseki busybox
+
+sudo docker run -dit --restart unless-stopped --name fuseki -p 3030:3030 -e ADMIN_PASSWORD=pw123 --volumes-from fuseki-data stain/jena-fuseki
+
+// example from docker docs - docker run -dit --restart unless-stopped redis
+
 sudo docker build --no-cache -t hyperdata-static .
 
 https://hub.docker.com/r/stain/jena-fuseki/
 
 https://github.com/stain/jena-docker
+
+attaching a shell:
 
 sudo docker exec -t -i container_name /bin/bash
 
