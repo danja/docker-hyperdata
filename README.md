@@ -2,7 +2,7 @@
 
 *Work in progress*
 
-Dockerfiles for, ultimately, all my sites and services.
+Dockerfiles for, ultimately, all my sites and services. 
 
 Most of my things are backed by a Fuseki2 SPARQL RDF store.
 
@@ -10,6 +10,12 @@ So far below there are instructions to get such a store running, with :
 
 * a [FooWiki](https://github.com/danja/foowiki) Wiki instance running as a browser-based application, accessing Fuseki over HTTP.
 * [Trellis](https://github.com/danja/trellis) - a browser-based hierarchical todo list, backed by SPARQL store (in development)
+
+## Prerequisites
+
+Install Docker and clone this repo.
+
+cd docker-hyperdata
 
 ### SPARQL store - Fuseki
 
