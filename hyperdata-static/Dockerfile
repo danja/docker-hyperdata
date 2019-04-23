@@ -30,6 +30,18 @@ RUN rm master.zip
 
 RUN rm -r schema-editor-gh-pages
 
+#
+# get foolicious static files
+#
+RUN wget -O master.zip https://github.com/danja/foolicious/archive/master.zip
+
+RUN unzip master.zip
+
+RUN mv foolicious-master foolicious
+
+RUN rm master.zip
+
+
 ###
 
 RUN wget -O master.zip https://github.com/danja/trellis/archive/master.zip
