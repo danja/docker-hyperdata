@@ -17,7 +17,6 @@ RUN mv foowiki-master foowiki
 
 RUN rm master.zip
 
-<<<<<<< HEAD
 #
 # get schema-editor static files
 #
@@ -33,7 +32,6 @@ RUN rm -r schema-editor-gh-pages
 
 ###
 
-=======
 RUN wget -O master.zip https://github.com/danja/trellis/archive/master.zip
 
 RUN unzip master.zip
@@ -42,7 +40,6 @@ RUN mv trellis-master trellis
 
 RUN rm master.zip
 
->>>>>>> 666dfd8d73931e37f7e7172a2ba3e16ae834c3e9
 RUN pwd
 
 RUN ls

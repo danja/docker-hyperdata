@@ -1,10 +1,19 @@
 # docker-hyperdata
 
-*Work in progress*
+Dockerfiles for, ultimately, all my sites and services. Most of this is what I'm now calling **HKMS** *Hyperdata Knowledge Management System*. This stuff isn't exactly production-ready, there are plenty of known bugs, though it all basically works and I'm running it locally for my own daily use.
 
-Dockerfiles for, ultimately, all my sites and services. 
+Most of this is backed by a Fuseki2 SPARQL RDF store.
 
-Most of my things are backed by a Fuseki2 SPARQL RDF store.
+## Status
+
+*Work in progress!*
+
+**2019-04-23** : the local server I was running this on is failing, so I decided to put this on my main laptop. This revealed several issues, so I've made the minimum necessary changes to get it working and edited this doc accordingly.
+
+Mysteriously there were some fragments of a diff in the hyperdata-static Docker file, 
+It looks like the default security has changed in Fuseki2, I was getting HTTP 401 when trying to save pages in FooWiki. So as a workaround for now I've tweaked the Shiro file : **_this shiro.ini allows any user to do a SPARQL update_** so probably best not run on a public server.
+
+**[note to self - BUG: link for FooWiki 'Upload Turtle' is broken, for now have to manually go to http://localhost:3030, choose foowiki dataset, add data, graph: http://hyperdata.it/wiki ]**
 
 So far below there are instructions to get such a store running, with :
 
@@ -13,9 +22,13 @@ So far below there are instructions to get such a store running, with :
 
 ## Prerequisites
 
-Install Docker and clone this repo.
+* Install Docker
 
-cd docker-hyperdata
+* Clone this repo and go into it:
+
+git clone https://github.com/danja/docker-hyperdata.git
+
+cd docker-hyperdata/hyperdata-static
 
 ### SPARQL store - Fuseki
 
@@ -39,6 +52,12 @@ cd hyperdata-static
 
 sudo docker cp hyperdata-config.ttl fuseki-data:/fuseki/config.ttl
 
+* Copy the Shiro security file into the data volume :
+
+sudo docker cp shiro.ini fuseki-data:/fuseki/shiro.ini
+
+**_NB. this shiro.ini allows any user to do a SPARQL update_**
+
 * Restart into the custom config:
 
 sudo docker stop fuseki
@@ -49,14 +68,48 @@ navigate to http://localhost:3030
 
 log in as admin:pw123
 
+#### Test Fuseki Server
+
+To check operation of the Fuseki store, first push some data into the store -
+
+Navigate to:
+
+http://localhost:3030/dataset.html
+
+Set these values:
+
+Dataset: /foowiki
+
+Endpoint: /foowiki/update
+
+In the query box, paste:
+
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+
+INSERT DATA
+{ GRAPH <http://hyperdata.it/wiki> { 
+	<http://example/test>  dc:title  "test" } 
+}
+
+Then click the run arrow. The result should say "Success".
+
+To make sure the data got in the store ok, now enter:
+
+Endpoint: /foowiki/query
+
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+
+SELECT ?value FROM <http://hyperdata.it/wiki>
+
+WHERE {
+	<http://example/test>  dc:title ?value
+}
+
+The result should again be "Success" with the value "test".
 
 ### hyperdata-static
 
 *This is based on the nginx image, with various browser-based apps addressing a remote SPARQL store.*
-
-(after git clone https://github.com/danja/docker-hyperdata.git)
-
-cd docker-hyperdata/hyperdata-static
 
 Build nginx-based image, adding files from GitHub :
 
