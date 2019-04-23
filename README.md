@@ -77,23 +77,25 @@ http://localhost:3030/dataset.html
 
 Set these values:
 
+<pre>
 Dataset: /foowiki
 
 Endpoint: /foowiki/update
+</pre>
 
 In the query box, paste:
-
+<pre>
 PREFIX dc: <http://purl.org/dc/elements/1.1/>
 
 INSERT DATA
-{ GRAPH <http://hyperdata.it/wiki> { 
-	<http://example/test>  dc:title  "test" } 
+{ GRAPH <http://hyperdata.it/wiki> {
+	<http://example/test>  dc:title  "test" }
 }
-
+</pre>
 Then click the run arrow. The result should say "Success".
 
 To make sure the data got in the store ok, now enter:
-
+<pre>
 Endpoint: /foowiki/query
 
 PREFIX dc: <http://purl.org/dc/elements/1.1/>
@@ -103,7 +105,7 @@ SELECT ?value FROM <http://hyperdata.it/wiki>
 WHERE {
 	<http://example/test>  dc:title ?value
 }
-
+</pre>
 The result should again be "Success" with the value "test".
 
 ### hyperdata-static
