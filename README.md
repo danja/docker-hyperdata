@@ -10,8 +10,7 @@ Most of this is backed by a Fuseki2 SPARQL RDF store.
 
 **2019-04-23** : the local server I was running this on is failing, so I decided to put this on my main laptop. This revealed several issues, so I've made the minimum necessary changes to get it working and edited this doc accordingly.
 
-Mysteriously there were some fragments of a diff in the hyperdata-static Docker file, 
-It looks like the default security has changed in Fuseki2, I was getting HTTP 401 when trying to save pages in FooWiki. So as a workaround for now I've tweaked the Shiro file : **_this shiro.ini allows any user to do a SPARQL update_** so probably best not run on a public server.
+Mysteriously there were some fragments of a diff in the hyperdata-static Docker file, easily deleted. It looks like the default security has changed in Fuseki2, I was getting HTTP 401 when trying to save pages in FooWiki. So as a workaround for now I've tweaked the Shiro file : **_this shiro.ini allows any user to do a SPARQL update_** so probably best not run on a public server.
 
 **[note to self - BUG: link for FooWiki 'Upload Turtle' is broken, for now have to manually go to http://localhost:3030, choose foowiki dataset, add data, graph: http://hyperdata.it/wiki ]**
 
