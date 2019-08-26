@@ -1,4 +1,4 @@
-# docker-hyperdata
+ # docker-hyperdata
 
 Dockerfiles for, ultimately, all my sites and services. Most of this is what I'm now calling **HKMS** *Hyperdata Knowledge Management System*. This stuff isn't exactly production-ready, there are plenty of known bugs, though it all basically works and I'm running it locally for my own daily use.
 
@@ -8,7 +8,12 @@ Most of this is backed by a Fuseki2 SPARQL RDF store.
 
 *Work in progress!*
 
-**2019-04-23** : the local server I was running this on is failing, so I decided to put this on my main laptop. This revealed several issues, so I've made the minimum necessary changes to get it working and edited this doc accordingly.
+**2019-08-26** : Added systemd startup scripts utils/docker-fuseki.service and utils/docker-hyperdata.service.
+
+I found a bug where the URL generation for new pages gained an extra character when working on other hosts, due to me implementing URL parsing in a stupid manner. I *may* have fixed this - haven't got around to properly testing.
+
+
+2019-04-23 : the local server I was running this on is failing, so I decided to put this on my main laptop. This revealed several issues, so I've made the minimum necessary changes to get it working and edited this doc accordingly.
 
 Mysteriously there were some fragments of a diff in the hyperdata-static Docker file, easily deleted. It looks like the default security has changed in Fuseki2, I was getting HTTP 401 when trying to save pages in FooWiki. So as a workaround for now I've tweaked the Shiro file : **_this shiro.ini allows any user to do a SPARQL update_** so probably best not run on a public server.
 
@@ -39,11 +44,11 @@ sudo docker pull stain/jena-fuseki
 
 * Set up a Busybox container to offer persistent storage volume :
 
-sudo docker run --name fuseki-data -v /fuseki busybox
+sudo docker run --restart always --name fuseki-data -v /fuseki busybox
 
 * Run a Fuseki container associated with volume:
 
-sudo docker run -d --name fuseki -p 3030:3030 -e ADMIN_PASSWORD=pw123 --volumes-from fuseki-data stain/jena-fuseki
+sudo docker run  --restart always -d --name fuseki -p 3030:3030 -e ADMIN_PASSWORD=pw123 --volumes-from fuseki-data stain/jena-fuseki
 
 cd hyperdata-static
 
@@ -118,7 +123,7 @@ sudo docker build --no-cache -t hyperdata-static .
 
 Run the Web server on port 80 :
 
-sudo docker run --name hyperdata -d -p 80:80 hyperdata-static
+sudo docker run  --restart always --name hyperdata -d -p 80:80 hyperdata-static
 
 #### Accesing FooWiki
 
@@ -151,6 +156,20 @@ In the Fuseki admin interface, on the dataset /foowiki, click 'add data'. The de
 Click 'Select Files' and navigate to your copy of bootstrap.ttl
 
 Now opening http://fuseki.local/foowiki should give you a running Wiki with some docs pre-loaded.
+
+#### Startup Scripts (systemd)
+
+To automatically start the corresponding docker services on boot, the files:
+
+* docker-hyperdata/utils/docker-fuseki.service 
+* docker-hyperdata/utils/docker-hyperdata.service
+
+should be copied to /etc/systemd/system/ then enabled by executing:
+
+sudo systemctl enable docker-fuseki
+sudo systemctl enable docker-hyperdata
+
+
 
 ### Schema Editor
 
