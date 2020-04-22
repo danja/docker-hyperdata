@@ -20,7 +20,9 @@ RUN rm master.zip
 #
 # get schema-editor static files
 #
-RUN wget -O master.zip https://github.com/zazukoians/schema-editor/archive/gh-pages.zip
+# RUN wget -O master.zip https://github.com/zazukoians/schema-editor/archive/gh-pages.zip
+
+RUN wget -O master.zip https://github.com/danja/schema-editor/archive/master.zip
 
 RUN unzip master.zip
 
@@ -28,7 +30,7 @@ RUN mv schema-editor-gh-pages/src/public schema-editor-gh-pages
 
 RUN rm master.zip
 
-RUN rm -r schema-editor-gh-pages
+# RUN rm -r schema-editor-gh-pages
 
 #
 # get foolicious static files
