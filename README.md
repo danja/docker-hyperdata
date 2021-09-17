@@ -50,6 +50,8 @@ sudo docker run --restart always --name fuseki-data -v /fuseki busybox
 
 sudo docker run  --restart always -d --name fuseki -p 3030:3030 -e ADMIN_PASSWORD=pw123 --volumes-from fuseki-data stain/jena-fuseki
 
+(to remove container: sudo docker container rm [container_id])
+ 
 cd hyperdata-static
 
 * Copy the Fuseki config file into the data volume :
@@ -169,7 +171,12 @@ should be copied to /etc/systemd/system/ then enabled by executing:
 sudo systemctl enable docker-fuseki
 sudo systemctl enable docker-hyperdata
 
+#### Removing
 
+sudo docker container stop fuseki
+sudo docker container stop fuseki-data
+sudo docker container rm fuseki
+sudo docker container rm fuseki-data
 
 ### Schema Editor
 
