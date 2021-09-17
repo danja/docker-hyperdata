@@ -171,12 +171,18 @@ should be copied to /etc/systemd/system/ then enabled by executing:
 sudo systemctl enable docker-fuseki
 sudo systemctl enable docker-hyperdata
 
+// oops - note /usr/lib/systemd/system/docker.service
+
+sudo docker container ls 
+
 #### Removing
 
 sudo docker container stop fuseki
 sudo docker container stop fuseki-data
 sudo docker container rm fuseki
 sudo docker container rm fuseki-data
+
+(sudo systemctl disable docker)
 
 ### Schema Editor
 
