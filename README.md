@@ -171,7 +171,7 @@ should be copied to /etc/systemd/system/ then enabled by executing:
 sudo systemctl enable docker-fuseki
 sudo systemctl enable docker-hyperdata
 
-// oops - note /usr/lib/systemd/system/docker.service
+// note also /usr/lib/systemd/system/docker.service
 
 sudo docker container ls 
 
